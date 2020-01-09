@@ -1,0 +1,210 @@
+/*    HoSSam Abd El HaKim Said    ^ ^   */
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+/*the first */
+struct info_of_carriage
+{
+	int classs;
+	float price;
+	bool seat[31];
+};
+int num_carriages;
+info_of_carriage carriages[100000];
+//info_of_carriage *carriages = new info_of_carriage[num_carriages];
+//vector<info_of_carriage>carriages(num_carriages);
+set<int>st;
+void mainn()
+{
+	cout << "\n\n\t\t\t\t\t***************************************\n";
+	cout << "\n\t\t\t\t\t\t\t Welcome ^^ \n";
+	cout << "\n\t\t\t\tAt Any Time If You Want To Go To This Main Just Enter -1\n\n";
+	cout << "\nEnter 1 To Book a Ticket.";
+	cout << "\nEnter 2 To Cancel a Ticket.";
+	cout << "\nEnter 3 To Show Available Seats.";
+	cout << "\nEnter 4 To Show Profit In Details.";
+	cout << "\nEnter 0 To Exit.";
+	cout << "\n\n\t\t\t\t\t***************************************\n";
+	cout << "\n\nYour Choice Is : ";
+
+}
+int valid_of_class(int clas){
+	for (int i = 1; i <= num_carriages; i++){
+		if (clas == carriages[i].classs){ return 1; }
+	}
+	return 0;
+}
+int valid_of_carriage(int clas, int car){
+	for (int i = 1; i <= num_carriages; i++){
+		if (carriages[car].classs == carriages[i].classs&&carriages[i].classs == clas){ return 1; }
+	}
+	return 0;
+}
+void book(){
+	cout << "\n\t\t\t\t\t Book A Ticket Beast Choice *_* \n";
+claSS:
+	cout << "\n\t\t\t\t\tThe Available Class In Our Train Is : \n";
+	set<int> ::iterator tt = st.begin();
+	while (tt != st.end())
+	{
+		cout << "Class Number : " << *tt << endl;
+		tt++;
+	}
+	cout << "\nWhat Is The Number Of Class You Want To Book Sir : ";
+	int a; cin >> a;
+	if (valid_of_class(a)){
+		cout << "\n\t\t\t\t\tThe Available Carriages Is : \n\n";
+		for (int i = 1; i <= num_carriages; i++){
+			if (carriages[i].classs == a){
+				cout << "Carriage Number : " << i <<
+					"  This Cost Is  " << carriages[i].price << " For Seat." << endl;
+			}
+		}
+	}
+	else if (a == -1)return;
+	else { cout << "\n\t\t\t\t\tPlease Enter A Valid Number Of Class.. \n"; goto claSS; }
+Carrige:
+	int b;
+	cout << "\nWhat Is The Number Of Carriage You Want To Book Sir : ";
+	cin >> b;
+	if (valid_of_carriage(a, b)){
+		//cout << "\n\t\t\t\t\tSeats Is Numbered From 1 To 30 : \n";
+	}
+	else if (b == -1)return;
+	else { cout << "\n\t\t\t\t\tPlease Enter A Valid Number Of carriage.. \n"; goto Carrige; }
+seat:
+	cout << "\n\t\t\t\t\tThe Available Seats Is : \n\n";
+	for (int i = 1; i <= 30; i++){
+		if (carriages[b].seat[i] == 0){ cout << i << " "; }
+	}
+	cout << endl;
+	int c;
+	cout << "\nWhat Is The Number Of Seat You Want To Book Sir..(Seats Is Numbered From 1 To 30) : ";
+	cin >> c;
+
+	if (c>0 && c < 31 && carriages[b].seat[c] == 0)
+	{
+		carriages[b].seat[c] = 1; cout << "\n\t\t\t\t\t Successful Operation ^^ "; return;
+	}
+	else if (c == -1)return;
+	else if (c>0 && c < 31 && carriages[b].seat[c] == 1){ cout << "\n\t\t\t This Seat Is Reserved Sir..Please Choose Another Seat \n\n"; goto seat; }
+	else { cout << "\n\t\t\t\tPlease Enter A Valid Number Of Seats form 1 to 30.. \n"; goto seat; }
+
+}
+void cancel(){
+	int car, set, wow = 0;
+	cout << "\n\t\t\t\t\t Cancel A Ticket Beast Choice *_* \n";
+caar:
+	cout << "\nPlease Enter The Number Of Carriage In The Train : ";
+	cin >> car;
+	if (car>0 && car <= num_carriages){
+	seaat:
+		cout << "\nPlease Enter The Number Of seat (Seats Is Numbered From 1 To 30) In The Carriage Number " << car << " : ";
+		cin >> set;
+		if (carriages[car].seat[set] == 1)
+		{
+			carriages[car].seat[set] = 0; cout << "\n\t\t\t\t\t Successful Operation ^^ \n\n";
+		}
+		else if (carriages[car].seat[set] == 0 && set > 0 && set < 31)
+		{
+			cout << "\n\t\t\t\t\t This Seat Is free Sir..Try Again \n"; goto seaat;
+		}
+		else if (set == -1)return;
+		else{ cout << "\n\t\t\t\t\tPlease Enter A Valid Number Of Seat Sir.."; goto seaat; }
+	}
+	else if (car == -1)return;
+	else { cout << "\n\t\t\t\t\tPlease Enter A Valid Number Of Carriage Sir.."; goto caar; }
+}
+void show_available_seats(){
+	cout << "\n\t\t\t\t\t Show Available Seats Beast Choice *_* \n";
+show1:
+	cout << "\nPlease Enter The Number Of Carriage In The Train : ";
+	int car; cin >> car;
+	if (car>0 && car <= num_carriages){
+		cout << "\t\t\t\t\tThe Available Seats In Carriage : " << car << " is : \n\n\n";
+		for (int i = 1; i <= 30; i++){
+			if (carriages[car].seat[i] == 0){ cout << "Set Num : " << i << "      "; if (i % 5 == 0)cout << endl; }
+		}
+	}
+	else if (car == -1)return;
+	else { cout << "\t\t\t\t\tPlease Enter A Valid Number Of Carriage Sir.."; goto show1; }
+}
+void print_profits_in_detail(){
+	cout << "\n\t\t\t\t\t Print A Profits In Details Beast Choice *_* \n";
+profits:
+	{
+		double sum = 0;
+		double total = 0;
+		for (int i = 1; i <= num_carriages; i++){
+			for (int j = 1; j < 31; j++){
+				if (carriages[i].seat[j] == 1){ sum += carriages[i].price; }
+				if (carriages[i].seat[j] == 1){ total += carriages[i].price; }
+			}
+			cout << "\nThe Profits In Carriage Number : " << i << " Equal  " << sum << endl;
+			sum = 0;
+		}
+
+		cout << "\nThe Profits In All Carriages In The Train Equal  " << total << endl;
+	}
+}
+
+int main()
+{
+
+	cout << "\n\n\t\t\t\t\t Hello In The train station program  \t\t\n\n";
+	 stt:
+	cout << "Please Enter The Number Of Carriages In The Train : ";
+
+	string s; cin >> s;
+	stringstream e(s); e >> num_carriages;
+	if (s >= "a" || num_carriages<1 || s.size()>6 || (int)log10(num_carriages) + 1 != s.size())
+        { cout << "\n\t\t\t\t\tPlease Enter A Valid Input Sir.. :\n"; goto stt; }
+	cout << "\n";
+	/* for to enter The Num Of Carriages In The Train */
+	for (int i = 1; i <= num_carriages; i++){
+		cout << "Carriage #" << i << ":\n";
+    carss:
+		cout << "Enter Class Of Carriage " << i << " : ";
+
+		 cin >> s;
+	stringstream ee(s); ee >> carriages[i].classs;
+	if (s >= "a" || carriages[i].classs<1 || s.size()>6 || (int)log10(carriages[i].classs) + 1 != s.size())
+        { cout << "\n\t\t\t\t\tPlease Enter A Valid Input Sir.. :\n"; goto carss; }
+		st.insert(carriages[i].classs);
+		    pricess :
+		cout << "Enter Price Of This Class : ";
+		 cin >> s;
+	stringstream eee(s); eee >> carriages[i].price;
+	if (s >= "a" || carriages[i].price<1 || s.size()>6)
+        { cout << "\n\t\t\t\t\tPlease Enter A Valid Input Sir.. :\n"; goto pricess; }
+		cout << "\n";
+	}
+
+	/*zero value */
+	for (int i = 1; i <= num_carriages; i++){
+		for (int j = 1; j <= 30; j++){
+			carriages[i].seat[j] = 0;
+		}
+	}
+	mainn();
+
+
+
+	string  choice;
+
+	while (true)
+	{
+			cin >> choice;
+		if (choice == "1"){ book(); }
+		else if (choice == "2"){ cancel(); }
+		else if (choice == "3"){ show_available_seats(); }
+		else if (choice == "4"){ print_profits_in_detail(); }
+		else if (choice == "0"){ cout << "\t\t\t\t\t\t Good Bye Sir..^^\n"; break; }
+		else { cout << "\n\t\t\t\tThis Choice Is Invalid Sir Please Enter Option From 1 To 4\n"; }
+		mainn();
+	}
+
+	//delete[]carriages;
+	return 0;
+}
+

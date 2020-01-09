@@ -1,0 +1,35 @@
+/*  MaTb3aa  */
+#include <bits/stdc++.h>
+using namespace std;
+#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+const int N = 1e5 + 5, M = 1e4 + 5, OO = 0x3f3f3f3f;
+typedef long long ll;
+#define all(v) v.begin(),v.end()
+int n,k,s;
+vector<int>v;
+int arr[100];
+int solve(int i){
+	if(i==n){
+		int sum=accumulate(all(v),0);
+		if(sum==s&&v.size()==k){for (int j = 0; j < v.size(); ++j)cout<<v[j]<<" ";cout<<endl;}
+		if(v.size()==k&&sum==s)return 1;
+		else return 0;
+	}
+	int ret=0;
+	v.push_back(arr[i]);
+	ret+=solve(i+1);
+	v.pop_back();
+	ret+=solve(i+1);
+	return ret;
+}
+
+int main() {
+	fast
+	cin>>n>>k>>s;
+	for (int i = 0; i < n; ++i)cin>>arr[i];
+	cout<<solve(0);
+
+
+	return 0;
+}
+

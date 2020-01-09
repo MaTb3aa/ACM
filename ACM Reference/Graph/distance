@@ -1,0 +1,56 @@
+/*  MaTb3aa  */
+#include <bits/stdc++.h>
+using namespace std;
+#define fast ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+const int N = 1e5 + 5, M = 1e4 + 5, OO = 0x3f3f3f3f;
+typedef long long ll;
+char arr[N][N];
+int dis[N][N];
+int vis[N][N];
+int w,h;
+int dx[] = { 1, -1, 0, 0 };
+int dy[] = { 0, 0, 1, -1 };
+bool valid(int x, int y) {
+	return x >= 0 && y >= 0 && x < h && y < w;
+}
+int ctr=0
+int solve(int x,int y){
+	vis[x][y]=1;
+	dis[x][y]=0;
+	ctr++;
+	for(int i=0;i<4;i++){
+		int ddx=dx[i]+x;
+		int ddy=dy[i]+y;
+		if(ctr==h*w)return dis[x][y];
+		if(valid(ddx,ddy)&&!vis[ddx][ddy]){vis[ddx][ddy]=1;dis[ddx][ddy]=dis[x][y]+1;
+		solve(ddx,ddy);}
+	}
+	return dis[x][y];
+}
+int main() {
+	//fastfreopen("fruits.in", "rt", stdin);
+	//freopen("castle.out", "wt", stdout);
+	int t;cin>>t;
+	while(t--){
+		int p,waters=0;cin>>p>>h>>w;
+		int px,py;
+		for(int i=0;i<h;i++){
+			for(int j=0;j<w;j++){
+				cin>>arr[i][j];
+				if(arr[i][j]=='W')waters++;
+				if(arr[i][j]=='P'){px=i;py=j;}
+			}
+		}
+		cout<<"OO";
+		/*
+		if(w<p)cout<<"-1\n";
+		else{
+			//solve(px,py);
+			cout<<"OO";
+		}*/
+
+	}
+
+	return 0;
+}
+

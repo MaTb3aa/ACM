@@ -1,0 +1,17 @@
+
+                                         laws of Geometry 
+                                         
+                                         
+double AreaOfTri (ll x1,ll y1,ll x2,ll y2,ll x3,ll y3){
+	double area=((x1*(y2-y3)+x2*(y3-y1)+x3*(y1-y2)))/2.0;
+	return (area>0) ? area : -area;
+}
+            -------------------------------------------------------------
+            
+chessbord Game 
+    max number of Queens in chessbord <=4,4  == min(x,y)
+    max number of Knight in chessbord <=4,4  == ans=x*y; if(ans&1)ans++;  ->ans/2
+    max number of King in chessbord <=4,4  == 
+    if(x<y)swap(x,y);if(x&1)x++;if(y&1)y++;ans = (x/2)*(y/2);
+		
+    
